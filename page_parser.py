@@ -7,8 +7,14 @@ from bs4 import BeautifulSoup, element
 
 
 def parse_info(info: str):
-    info = [item.split(': ')[1] for item in info.split(' | ')]
-    return tuple(info)
+    a = list()
+    for item in info.split(' | '):
+        item = item.split(': ')
+        if len(item) == 2:
+            a.append(item[1])
+        else:
+            a.append(None)
+    return tuple(a)
     
 
 def get_page_data(URL: str):
@@ -31,6 +37,7 @@ def get_listing_entry(ad: element.Tag) -> Tuple[str, bool]:
     info, summary = get_page_data(URL)
     summary = summary.split('Rok oddaje')[0]
     summary = summary.split('Datum dražbe')[0]
+    #print(summary)
     try:
         offer_type, propety_type, region, subregion, commune = parse_info(info)
         propety_type = config.propety_types[propety_type]

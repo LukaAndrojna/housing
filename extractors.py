@@ -12,6 +12,8 @@ def parse_str_to_float(s: str) -> float:
     return float(s)
 
 def extract_area(s: str) -> float:
+    if 'm2' not in s:
+        return None
     area = re.findall(r'[0-9,\.]+ m2', s)
     if len(area) == 0:
         return None
@@ -26,22 +28,33 @@ def extract_price(s: str, area: float) -> Tuple[float, float]:
         if opt in s:
             price = s.split(opt)[-1]
     price = remove_substrings(price, ['do ', 'min. ', 'max. ', 'cca ', ''])
-    
+
+    modifier = 1
+    if '/l' in price:
+        modifier = 1/12
+    if '/ted' in price:
+        modifier = 4.35
+    if '/dan' in price:
+        modifier = 30.42
+
     if s.endswith('EUR/m2') or s.endswith('EUR/m2/mes'):
         price = remove_substrings(price, [' EUR/m2', '/l', '/mes', '/ted', '/dan'])
         price = parse_str_to_float(price)
-        return price * area, price
+
+        return price * area * modifier, price * modifier
     price = remove_substrings(price, [' EUR', '/l', '/mes', '/ted', '/dan'])
     price = parse_str_to_float(price)
     area_price = None
-    if area > 0:
+    if area != None and area > 0:
         area_price = price / area
-    return price, area_price
+    return price * modifier, area_price * modifier
 
 def extract_location(s: str) -> str:
     return s.split(',')[0].lower()
 
 def extract_type(s: str) -> str:
+    if 'm2,' not in s:
+        return None
     return s.split('m2,')[1].split(',')[0].lower()
 
 def extract_year_built(s: str) -> int:
