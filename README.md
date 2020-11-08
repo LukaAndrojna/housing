@@ -15,7 +15,7 @@ Run
 ```bash
 python3 nepremicnine_scraper_threaded.py
 ```
-to get todays data from nepremicnine.net
+to get today's data from nepremicnine.net
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
@@ -29,3 +29,9 @@ https://www.nepremicnine.net/
 https://realpython.com/python-concurrency/
 
 https://realpython.com/intro-to-python-threading/
+
+## TODOs:
+
+- Data aggregator and possibly a database
+- Analytics and possibly some modeling
+- Deploy a webstite with interactive plots
