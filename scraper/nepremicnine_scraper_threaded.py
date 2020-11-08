@@ -1,32 +1,10 @@
 import config
-import page_parser
 import local_config
+from listings import Listings
 
 import requests
-import threading
 import concurrent.futures
 from bs4 import BeautifulSoup
-
-
-class Listings:
-    def __init__(self):
-        self._successful_listings = [','.join(config.feature_names)]
-        self._failed_listings = list()
-        self._lock = threading.Lock()
-    
-    def parse_listing(self, ad):
-        features, success = page_parser.get_listing_entry(ad)
-        with self._lock:
-            if success:
-                self._successful_listings.append(features)
-            else:
-                self._failed_listings.append(features)
-    
-    def successful_output(self) -> str:
-        return '\n'.join(self._successful_listings)
-    
-    def failed_output(self) -> str:
-        return '\n'.join(self._failed_listings)
 
 
 def main():
@@ -51,6 +29,7 @@ def main():
 
     with open(local_config.txt_file, 'w', encoding='utf-8') as f:
         f.write(listings.failed_output())
+
 
 if __name__ == "__main__":
     main()
