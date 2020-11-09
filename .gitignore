@@ -132,3 +132,4 @@ dmypy.json
 CSVs/
 TXTs/
 local_config.py
+data.csv
