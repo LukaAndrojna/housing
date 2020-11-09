@@ -19,9 +19,6 @@ to get today's data from nepremicnine.net
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
 ## Resources:
 
 https://www.nepremicnine.net/
